@@ -14,6 +14,7 @@ Based on this CFG, the following expressions are valid inputs for the calculator
 3+4
 3+(5*4)
 9/(5-2)
+(6)
 ```
 
 And the following are invalid inputs:
@@ -23,3 +24,5 @@ And the following are invalid inputs:
 -3+6
 ```
 The first is invalid because there must be an operator preceding every parenthesis. The second is invalid because all opening parentheses must have a closing parenthesis. The last is invalid because (-) is an operator, and cannot be used to represent negative integers. According to this CFG, (-) must be preceded and followed by numbers.
+
+Buttons disable and enable as the user enters expressions in order to force input that is consistent with the CFG. The only possible error that can be thrown by this GUI calculator is a divide by 0 error, because that is found while parsing.
