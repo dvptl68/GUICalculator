@@ -17,6 +17,11 @@ public interface GUICalcController {
     void processClear();
 
     /**
+     * Processes event to delete one character from display.
+     */
+    void processBackspace();
+
+    /**
      * Processes event to add + to display.
      */
     void processAdd();

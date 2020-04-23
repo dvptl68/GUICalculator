@@ -24,8 +24,8 @@ public class GUICalcViewClass implements GUICalcView {
     /**
      * Operator buttons.
      */
-    private final JButton clear, enter, add, subtract, multiply, divide,
-            leftParen, rightParen;
+    private final JButton clear, backspace, enter, add, subtract, multiply,
+            divide, leftParen, rightParen;
 
     /**
      * Number buttons.
@@ -42,6 +42,7 @@ public class GUICalcViewClass implements GUICalcView {
          */
         this.display = new JTextArea();
         this.clear = new JButton("Clear");
+        this.backspace = new JButton("Backspace");
         this.enter = new JButton("Enter");
         this.add = new JButton("+");
         this.subtract = new JButton("-");
@@ -53,6 +54,18 @@ public class GUICalcViewClass implements GUICalcView {
         for (int i = 0; i < this.numbers.length; i++) {
             this.numbers[i] = new JButton(i + "");
         }
+
+        /*
+         * Make display wrap lines and read-only
+         */
+        this.display.setEditable(false);
+        this.display.setLineWrap(true);
+        this.display.setWrapStyleWord(true);
+
+        /*
+         * Enter is initially disabled
+         */
+        this.enter.setEnabled(false);
     }
 
     @Override
