@@ -67,6 +67,19 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
         this.display.setWrapStyleWord(true);
 
         /*
+         * All buttons except numbers and left parenthesis are initially
+         * disabled to force correct input according to the CFG
+         */
+        this.enter.setEnabled(false);
+        this.backspace.setEnabled(false);
+        this.clear.setEnabled(false);
+        this.rightParen.setEnabled(false);
+        this.add.setEnabled(false);
+        this.subtract.setEnabled(false);
+        this.multiply.setEnabled(false);
+        this.divide.setEnabled(false);
+
+        /*
          * Create scroll pane for display
          */
         JScrollPane displayScroll = new JScrollPane(this.display);
