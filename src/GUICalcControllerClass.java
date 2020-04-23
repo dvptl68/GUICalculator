@@ -267,8 +267,7 @@ public class GUICalcControllerClass implements GUICalcController {
         /*
          * Calculate value of expression
          */
-        StringBuilder expression = new StringBuilder(this.model.display());
-        int value = valueOfExpr(expression);
+        int value = valueOfExpr(new StringBuilder(this.model.display() + "!"));
 
         /*
          * Update model to concatenate solution onto next line
