@@ -2,6 +2,8 @@
 
 This is a simple GUI calculator developed in Java. It utilizes [Java Swing Framework](https://en.wikipedia.org/wiki/Swing_(Java)) for the GUI, and [recursive-descent parsing](https://en.wikipedia.org/wiki/Recursive_descent_parser) for calculations.
 
+## How it works:
+
 The recursive-descent parsing this calculator utilizes relies on the following CFG ([Context-Free Grammar](https://en.wikipedia.org/wiki/Context-free_grammar)):
 
 ![CFG](images/cfg.png)
@@ -23,5 +25,7 @@ And the following are invalid inputs:
 -3+6
 ```
 The first is invalid because there must be an operator preceding every parenthesis. The second is invalid because all opening parentheses must have a closing parenthesis. The last is invalid because (-) is an operator, and cannot be used to represent negative integers. According to this CFG, (-) must be preceded and followed by numbers.
+
+## How to use it:
 
 ***Buttons disable and enable as the user enters expressions in order to force input that is consistent with the CFG. The only possible error that can be thrown by this GUI calculator is a divide by 0 error, because that is found while parsing.***
