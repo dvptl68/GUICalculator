@@ -16,10 +16,30 @@ public class GUICalcControllerClass implements GUICalcController {
      */
     private final GUICalcView view;
 
-    /***
+    /**
      * Number based used in calculations.
      */
     private static final int RADIX = 10;
+
+    /**
+     * Numer of left and right parentheses in the expression.
+     */
+    private static int numLeft = 0, numRight = 0;
+
+    /**
+     * Types of last character of expression.
+     */
+    private static enum Kind {
+        /**
+         * Last is either number, operator, '(', ')', or empty
+         */
+        NUMBER, OPERATOR, LEFT_PAREN, RIGHT_PAREN, EMPTY
+    }
+
+    /**
+     * Kind variable to determine what kind of character the last is.
+     */
+    private static Kind last;
 
     /**
      * Constructor.
@@ -226,6 +246,41 @@ public class GUICalcControllerClass implements GUICalcController {
      */
 
     /**
+     * Sets the static variable last to the kind of character it is.
+     *
+     * @param expr
+     *            the expression
+     */
+    private static void setKind(String expr) {
+
+        if (expr.length() > 0) {
+
+            char end = expr.charAt(expr.length() - 1);
+
+            if (Character.isDigit(end)) {
+
+                last = Kind.NUMBER;
+
+            } else if (end == '(') {
+
+                last = Kind.LEFT_PAREN;
+
+            } else if (end == ')') {
+
+                last = Kind.RIGHT_PAREN;
+
+            } else {
+
+                last = Kind.OPERATOR;
+            }
+
+        } else {
+
+            last = Kind.EMPTY;
+        }
+    }
+
+    /**
      * Updates the view object to reflect changes incurred by user.
      *
      * @param model
@@ -235,14 +290,115 @@ public class GUICalcControllerClass implements GUICalcController {
      */
     private static void update(GUICalcModel model, GUICalcView view) {
 
-        view.updateDisplay(model.display());
+        /*
+         * Current expression
+         */
+        String expr = model.display();
+
+        /*
+         * Update GUI display to current expression
+         */
+        view.updateDisplay(expr);
+
+        /*
+         * Sets last static variable to the kind of expression
+         */
+        setKind(expr);
+
+        switch (last) {
+            case NUMBER: {
+                view.enableNums(true);
+                view.enableOps(true);
+                view.enableLeftParen(false);
+                view.enableRightParen(numLeft > numRight);
+                view.enableBackspace(true);
+                view.enableClear(true);
+                view.enableEnter(numLeft == numRight);
+                break;
+            }
+            case OPERATOR: {
+                view.enableNums(true);
+                view.enableOps(false);
+                view.enableLeftParen(true);
+                view.enableRightParen(false);
+                view.enableBackspace(true);
+                view.enableClear(true);
+                view.enableEnter(false);
+                view.enableZero(expr.charAt(expr.length() - 1) != '/');
+                break;
+            }
+            case LEFT_PAREN: {
+                view.enableNums(true);
+                view.enableOps(false);
+                view.enableLeftParen(true);
+                view.enableRightParen(false);
+                view.enableBackspace(true);
+                view.enableClear(true);
+                view.enableEnter(false);
+                break;
+            }
+            case RIGHT_PAREN: {
+                view.enableNums(false);
+                view.enableOps(true);
+                view.enableLeftParen(false);
+                view.enableRightParen(numLeft > numRight);
+                view.enableBackspace(true);
+                view.enableClear(true);
+                view.enableEnter(numLeft == numRight);
+                break;
+            }
+            case EMPTY: {
+                view.enableNums(true);
+                view.enableOps(false);
+                view.enableLeftParen(true);
+                view.enableRightParen(false);
+                view.enableBackspace(false);
+                view.enableClear(false);
+                view.enableEnter(false);
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Updates to view object to reflect changes after enter is pressed.
+     *
+     * @param model
+     *            reference to model object
+     * @param view
+     *            reference to view object
+     */
+    private static void updateEnter(GUICalcModel model, GUICalcView view) {
+
+        /*
+         * Current expression
+         */
+        String expr = model.display();
+
+        /*
+         * Update GUI display to current expression
+         */
+        view.updateDisplay(expr);
+
+        /*
+         * Disable everything except clear
+         */
+        view.enableNums(false);
+        view.enableOps(false);
+        view.enableLeftParen(false);
+        view.enableRightParen(false);
+        view.enableBackspace(false);
+        view.enableClear(true);
+        view.enableEnter(false);
     }
 
     @Override
     public void processBackspace() {
 
         /*
-         * Updates model to remove last character in display
+         * Update model to remove last character in display
          */
         String disp = this.model.display();
         this.model.setDisplay(disp.substring(0, disp.length() - 1));
@@ -254,7 +410,7 @@ public class GUICalcControllerClass implements GUICalcController {
     public void processClear() {
 
         /*
-         * Updates model to clear display
+         * Update model to clear display
          */
         this.model.setDisplay("");
 
@@ -274,14 +430,14 @@ public class GUICalcControllerClass implements GUICalcController {
          */
         this.model.setDisplay(this.model.display() + "\n=" + value);
 
-        update(this.model, this.view);
+        updateEnter(this.model, this.view);
     }
 
     @Override
     public void processAdd() {
 
         /*
-         * Updates model to concatenate + to end of display
+         * Update model to concatenate + to end of display
          */
         this.model.setDisplay(this.model.display() + "+");
 
@@ -292,7 +448,7 @@ public class GUICalcControllerClass implements GUICalcController {
     public void processSubtract() {
 
         /*
-         * Updates model to concatenate - to end of display
+         * Update model to concatenate - to end of display
          */
         this.model.setDisplay(this.model.display() + "-");
 
@@ -304,7 +460,7 @@ public class GUICalcControllerClass implements GUICalcController {
     public void processMultiply() {
 
         /*
-         * Updates model to concatenate * to end of display
+         * Update model to concatenate * to end of display
          */
         this.model.setDisplay(this.model.display() + "*");
 
@@ -315,7 +471,7 @@ public class GUICalcControllerClass implements GUICalcController {
     public void processDivide() {
 
         /*
-         * Updates model to concatenate / to end of display
+         * Update model to concatenate / to end of display
          */
         this.model.setDisplay(this.model.display() + "/");
 
@@ -326,7 +482,12 @@ public class GUICalcControllerClass implements GUICalcController {
     public void processLeftParen() {
 
         /*
-         * Updates model to concatenate ( to end of display
+         * Update static variable accordingly
+         */
+        numLeft++;
+
+        /*
+         * Update model to concatenate ( to end of display
          */
         this.model.setDisplay(this.model.display() + "(");
 
@@ -337,7 +498,12 @@ public class GUICalcControllerClass implements GUICalcController {
     public void processRightParen() {
 
         /*
-         * Updates model to concatenate ) to end of display
+         * Update static variable accordingly
+         */
+        numRight++;
+
+        /*
+         * Update model to concatenate ) to end of display
          */
         this.model.setDisplay(this.model.display() + ")");
 
@@ -348,7 +514,7 @@ public class GUICalcControllerClass implements GUICalcController {
     public void processNum(int num) {
 
         /*
-         * Updates model to concatenate paramter num to end of display
+         * Update model to concatenate paramter num to end of display
          */
         this.model.setDisplay(this.model.display() + num);
 

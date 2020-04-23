@@ -172,7 +172,7 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
     public void registerObserver(GUICalcController controller) {
 
         /*
-         * Sets controller instance variable to parameter
+         * Set controller instance variable to parameter
          */
         this.controller = controller;
     }
@@ -181,7 +181,7 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
     public void updateDisplay(String s) {
 
         /*
-         * Changes text area text to parameter
+         * Change text area text to parameter
          */
         this.display.setText(s);
     }
@@ -190,7 +190,7 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
     public void enableOps(boolean b) {
 
         /*
-         * Enables/disables operator buttons based on parameter
+         * Enable/disable operator buttons based on parameter
          */
         this.add.setEnabled(b);
         this.subtract.setEnabled(b);
@@ -202,7 +202,7 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
     public void enableLeftParen(boolean b) {
 
         /*
-         * Enables/disables '(' based on parameter
+         * Enable/disable '(' based on parameter
          */
         this.leftParen.setEnabled(b);
     }
@@ -211,7 +211,7 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
     public void enableRightParen(boolean b) {
 
         /*
-         * Enables/disables ')' based on parameter
+         * Enable/disable ')' based on parameter
          */
         this.rightParen.setEnabled(b);
     }
@@ -220,7 +220,7 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
     public void enableNums(boolean b) {
 
         /*
-         * Enables/disables number buttons based on parameter
+         * Enable/disable number buttons based on parameter
          */
         for (int i = 0; i < this.numbers.length; i++) {
 
@@ -232,7 +232,7 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
     public void enableZero(boolean b) {
 
         /*
-         * Enables/disables zero button based on parameter
+         * Enable/disable zero button based on parameter
          */
         this.numbers[0].setEnabled(b);
     }
@@ -241,7 +241,7 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
     public void enableBackspace(boolean b) {
 
         /*
-         * Enables/disables backspace button based on parameter
+         * Enable/disable backspace button based on parameter
          */
         this.backspace.setEnabled(b);
     }
@@ -250,7 +250,7 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
     public void enableClear(boolean b) {
 
         /*
-         * Enables/disables backspace button based on parameter
+         * Enable/disable backspace button based on parameter
          */
         this.clear.setEnabled(b);
     }
@@ -259,7 +259,7 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
     public void enableEnter(boolean b) {
 
         /*
-         * Enables/disables backspace button based on parameter
+         * Enable/disable backspace button based on parameter
          */
         this.enter.setEnabled(b);
     }
