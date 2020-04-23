@@ -157,16 +157,85 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
 
     @Override
     public void registerObserver(GUICalcController controller) {
+
+        /*
+         * Sets controller instance variable to parameter
+         */
         this.controller = controller;
     }
 
     @Override
     public void updateDisplay(String s) {
+
+        /*
+         * Changes text area text to parameter
+         */
         this.display.setText(s);
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
 
+        /*
+         * Determine which event has occured
+         */
+        Object source = event.getSource();
+
+        /*
+         * Based on the event, the appropriate controller method is invoked
+         */
+        if (source == this.clear) {
+
+            this.controller.processClear();
+
+        } else if (source == this.backspace) {
+
+            this.controller.processBackspace();
+
+        } else if (source == this.enter) {
+
+            this.controller.processEnter();
+
+        } else if (source == this.add) {
+
+            this.controller.processAdd();
+
+        } else if (source == this.subtract) {
+
+            this.controller.processSubtract();
+
+        } else if (source == this.multiply) {
+
+            this.controller.processMultiply();
+
+        } else if (source == this.divide) {
+
+            this.controller.processDivide();
+
+        } else if (source == this.leftParen) {
+
+            this.controller.processLeftParen();
+
+        } else if (source == this.rightParen) {
+
+            this.controller.processRightParen();
+
+        } else {
+
+            /*
+             * If none of the above statements are executed, source is a number
+             */
+            for (int i = 0; i < this.numbers.length; i++) {
+
+                if (source == this.numbers[i]) {
+
+                    /*
+                     * this.numbers[i].getLabel() == i
+                     */
+                    this.controller.processNum(i);
+                    break;
+                }
+            }
+        }
     }
 }
