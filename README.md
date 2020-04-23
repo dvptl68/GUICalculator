@@ -20,5 +20,6 @@ And the following are invalid inputs:
 ```
 5(4+7)
 4+(3-6
+-3+6
 ```
-There must be an operator preceding every parenthesis, and all opening parentheses must have a closing parenthesis.
+The first is invalid because there must be an operator preceding every parenthesis.The second is invalid because all opening parentheses must have a closing parenthesis. The last is invalid because (-) is an operator, and cannot be used to represent negative integers. According to this CFG, (-) must be preceded and followed by numbers.
