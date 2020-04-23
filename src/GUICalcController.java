@@ -7,9 +7,9 @@
 public interface GUICalcController {
 
     /**
-     * Processes event to calculate the entered operation.
+     * Processes event to delete one character from display.
      */
-    void processEnter();
+    void processBackspace();
 
     /**
      * Processes event to clear the display.
@@ -17,9 +17,9 @@ public interface GUICalcController {
     void processClear();
 
     /**
-     * Processes event to delete one character from display.
+     * Processes event to calculate the entered operation.
      */
-    void processBackspace();
+    void processEnter();
 
     /**
      * Processes event to add + to display.
@@ -32,14 +32,14 @@ public interface GUICalcController {
     void processSubtract();
 
     /**
-     * Processes event to add / to display.
-     */
-    void processDivide();
-
-    /**
      * Processes event to add * to display.
      */
     void processMultiply();
+
+    /**
+     * Processes event to add / to display.
+     */
+    void processDivide();
 
     /**
      * Processes event to add ( to display.

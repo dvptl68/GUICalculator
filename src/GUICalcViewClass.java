@@ -16,12 +16,12 @@ import javax.swing.JTextArea;
 public class GUICalcViewClass extends JFrame implements GUICalcView {
 
     /**
-     * Controller object to observse interaction events.
+     * Controller object to observe interaction events.
      */
     private GUICalcController controller;
 
     /**
-     * Test area.
+     * Text area.
      */
     private final JTextArea display;
 
@@ -162,7 +162,7 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
 
     @Override
     public void updateDisplay(String s) {
-
+        this.display.setText(s);
     }
 
     @Override
