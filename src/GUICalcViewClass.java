@@ -1,6 +1,8 @@
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 /**
@@ -31,6 +33,12 @@ public class GUICalcViewClass implements GUICalcView {
      * Number buttons.
      */
     private final JButton[] numbers;
+
+    /**
+     * Constants.
+     */
+    private static final int TEXT_AREA_HEIGHT = 5, TEXT_AREA_WIDTH = 20,
+            DIGIT_BUTTONS = 10;
 
     /**
      * Default Constructor.
@@ -66,6 +74,16 @@ public class GUICalcViewClass implements GUICalcView {
          * Enter is initially disabled
          */
         this.enter.setEnabled(false);
+
+        /*
+         * Create scroll pane for display
+         */
+        JScrollPane displayScroll = new JScrollPane(this.display);
+
+        /*
+         * Create button panel
+         */
+        JPanel buttonPanel = new JPanel();
     }
 
     @Override
