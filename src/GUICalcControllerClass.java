@@ -22,6 +22,11 @@ public class GUICalcControllerClass implements GUICalcController {
     private static final int RADIX = 10;
 
     /**
+     * Boolean value to keep track of whether divide by 0 happens during parse.
+     */
+    private static boolean divideByZero = false;
+
+    /**
      * Numer of left and right parentheses in the expression.
      */
     private static int numLeft = 0, numRight = 0;
@@ -31,7 +36,7 @@ public class GUICalcControllerClass implements GUICalcController {
      */
     private static enum Kind {
         /**
-         * Last is either number, operator, '(', ')', or empty
+         * Last is either number, operator, '(', ')', or empty.
          */
         NUMBER, OPERATOR, LEFT_PAREN, RIGHT_PAREN, EMPTY
     }
@@ -190,7 +195,16 @@ public class GUICalcControllerClass implements GUICalcController {
 
             } else {
 
-                value /= nextFactor;
+                try {
+
+                    value /= nextFactor;
+
+                } catch (ArithmeticException e) {
+
+                    value = nextFactor;
+                    divideByZero = true;
+                }
+
             }
         }
 
@@ -423,7 +437,15 @@ public class GUICalcControllerClass implements GUICalcController {
         /*
          * Calculate value of expression
          */
-        int value = expr(new StringBuilder(this.model.display() + "!"));
+        String value = expr(new StringBuilder(this.model.display() + "!")) + "";
+
+        /*
+         * Replaces value with error message if divide by 0 occurs during parse
+         */
+        if (divideByZero) {
+
+            value = "ERROR: DIVIDE BY 0";
+        }
 
         /*
          * Update model to concatenate solution onto next line
