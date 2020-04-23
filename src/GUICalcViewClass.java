@@ -13,6 +13,7 @@ import javax.swing.JTextArea;
  * @author Dev Patel
  *
  */
+@SuppressWarnings("serial")
 public class GUICalcViewClass extends JFrame implements GUICalcView {
 
     /**
@@ -40,6 +41,11 @@ public class GUICalcViewClass extends JFrame implements GUICalcView {
      * Default Constructor.
      */
     public GUICalcViewClass() {
+
+        /*
+         * Set the title of the GUI
+         */
+        super("GUI Calculator");
 
         /*
          * Create widgets
