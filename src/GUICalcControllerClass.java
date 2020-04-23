@@ -56,36 +56,44 @@ public class GUICalcControllerClass implements GUICalcController {
     @Override
     public void processAdd() {
 
+        this.model.setDisplay(this.model.display() + "+");
     }
 
     @Override
     public void processSubtract() {
+
+        this.model.setDisplay(this.model.display() + "-");
 
     }
 
     @Override
     public void processMultiply() {
 
+        this.model.setDisplay(this.model.display() + "*");
     }
 
     @Override
     public void processDivide() {
 
+        this.model.setDisplay(this.model.display() + "/");
     }
 
     @Override
     public void processLeftParen() {
 
+        this.model.setDisplay(this.model.display() + "(");
     }
 
     @Override
     public void processRightParen() {
 
+        this.model.setDisplay(this.model.display() + ")");
     }
 
     @Override
     public void processNum(int num) {
 
+        this.model.setDisplay(this.model.display() + num);
     }
 
 }
