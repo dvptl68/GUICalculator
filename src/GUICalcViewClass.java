@@ -1,6 +1,8 @@
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -11,7 +13,7 @@ import javax.swing.JTextArea;
  * @author Dev Patel
  *
  */
-public class GUICalcViewClass implements GUICalcView {
+public class GUICalcViewClass extends JFrame implements GUICalcView {
 
     /**
      * Controller object to observse interaction events.
@@ -33,12 +35,6 @@ public class GUICalcViewClass implements GUICalcView {
      * Number buttons.
      */
     private final JButton[] numbers;
-
-    /**
-     * Constants.
-     */
-    private static final int TEXT_AREA_HEIGHT = 5, TEXT_AREA_WIDTH = 20,
-            DIGIT_BUTTONS = 10;
 
     /**
      * Default Constructor.
@@ -71,19 +67,92 @@ public class GUICalcViewClass implements GUICalcView {
         this.display.setWrapStyleWord(true);
 
         /*
-         * Enter is initially disabled
-         */
-        this.enter.setEnabled(false);
-
-        /*
          * Create scroll pane for display
          */
         JScrollPane displayScroll = new JScrollPane(this.display);
 
         /*
-         * Create button panel
+         * Create left button panel
          */
-        JPanel buttonPanel = new JPanel();
+        JPanel leftButtonPanel = new JPanel(new GridLayout(4, 4));
+
+        /*
+         * Add buttons to left button panel
+         */
+        leftButtonPanel.add(this.numbers[7]);
+        leftButtonPanel.add(this.numbers[8]);
+        leftButtonPanel.add(this.numbers[9]);
+        leftButtonPanel.add(this.add);
+        leftButtonPanel.add(this.numbers[4]);
+        leftButtonPanel.add(this.numbers[5]);
+        leftButtonPanel.add(this.numbers[6]);
+        leftButtonPanel.add(this.subtract);
+        leftButtonPanel.add(this.numbers[1]);
+        leftButtonPanel.add(this.numbers[2]);
+        leftButtonPanel.add(this.numbers[3]);
+        leftButtonPanel.add(this.multiply);
+        leftButtonPanel.add(this.numbers[0]);
+        leftButtonPanel.add(this.leftParen);
+        leftButtonPanel.add(this.rightParen);
+        leftButtonPanel.add(this.divide);
+
+        /*
+         * Create right button panel
+         */
+        JPanel rightButtonPanel = new JPanel(new GridLayout(3, 1));
+
+        /*
+         * Add buttons to right button panel
+         */
+        rightButtonPanel.add(this.backspace);
+        rightButtonPanel.add(this.clear);
+        rightButtonPanel.add(this.enter);
+
+        /*
+         * Create combined button panel
+         */
+        JPanel allButtons = new JPanel();
+
+        /*
+         * Add two button panels to combined button panel
+         */
+        allButtons.add(leftButtonPanel);
+        allButtons.add(rightButtonPanel);
+
+        /*
+         * Organize main window
+         */
+        this.setLayout(new GridLayout(2, 1));
+
+        /*
+         * Add scroll pane and button panel to main window
+         */
+        this.add(displayScroll);
+        this.add(allButtons);
+
+        /*
+         * Register this as observer for all events
+         */
+        this.clear.addActionListener(this);
+        this.backspace.addActionListener(this);
+        this.enter.addActionListener(this);
+        this.add.addActionListener(this);
+        this.subtract.addActionListener(this);
+        this.multiply.addActionListener(this);
+        this.divide.addActionListener(this);
+        this.leftParen.addActionListener(this);
+        this.rightParen.addActionListener(this);
+        for (int i = 0; i < this.numbers.length; i++) {
+            this.numbers[i].addActionListener(this);
+        }
+
+        /*
+         * Make main window sized correctly, exits on close, and is visible
+         */
+        this.pack();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
+
     }
 
     @Override
