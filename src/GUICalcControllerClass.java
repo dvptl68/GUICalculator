@@ -46,10 +46,10 @@ public class GUICalcControllerClass implements GUICalcController {
      * Evaluates a digit and returns its value.
      *
      * @param source
-     *            the {@code StringBuilder} that starts with a digit
-     * @return value of the digit
+     *            StringBuilder that starts with a digit
+     * @return value of digit
      */
-    private static int valueOfDigit(StringBuilder source) {
+    private static int digit(StringBuilder source) {
 
         /*
          * Parse digit to be returned
@@ -68,10 +68,10 @@ public class GUICalcControllerClass implements GUICalcController {
      * Evaluates a digit sequence and returns its value.
      *
      * @param source
-     *            the {@code StringBuilder} that starts with a digit-seq string
-     * @return value of the digit sequence
+     *            StringBuilder that starts with a digit-seq string
+     * @return value of digit sequence
      */
-    private static int valueOfDigitSeq(StringBuilder source) {
+    private static int digitSeq(StringBuilder source) {
 
         /*
          * Add digits onto the value until a non-number character is found
@@ -80,7 +80,7 @@ public class GUICalcControllerClass implements GUICalcController {
 
         while (Character.isDigit(source.charAt(0))) {
 
-            value = (value * RADIX) + valueOfDigit(source);
+            value = (value * RADIX) + digit(source);
         }
 
         return value;
@@ -90,10 +90,10 @@ public class GUICalcControllerClass implements GUICalcController {
      * Evaluates a factor and returns its value.
      *
      * @param source
-     *            the {@code StringBuilder} that starts with a factor string
-     * @return value of the factor
+     *            StringBuilder that starts with a factor string
+     * @return value of factor
      */
-    private static int valueOfFactor(StringBuilder source) {
+    private static int factor(StringBuilder source) {
 
         int value;
 
@@ -111,7 +111,7 @@ public class GUICalcControllerClass implements GUICalcController {
             /*
              * Evaluate expressions
              */
-            value = valueOfExpr(source);
+            value = expr(source);
 
             /*
              * Consume ')'
@@ -123,7 +123,7 @@ public class GUICalcControllerClass implements GUICalcController {
             /*
              * Find the number value of the digit sequence
              */
-            value = valueOfDigitSeq(source);
+            value = digitSeq(source);
         }
 
         return value;
@@ -133,15 +133,15 @@ public class GUICalcControllerClass implements GUICalcController {
      * Evaluates a term and returns its value.
      *
      * @param source
-     *            the {@code StringBuilder} that starts with a term string
-     * @return value of the term
+     *            StringBuilder that starts with a term string
+     * @return value of term
      */
-    private static int valueOfTerm(StringBuilder source) {
+    private static int term(StringBuilder source) {
 
         /*
          * First value of term is always a factor
          */
-        int value = valueOfFactor(source);
+        int value = factor(source);
 
         /*
          * Complete multiply or divide operations on value until a non-term
@@ -159,7 +159,7 @@ public class GUICalcControllerClass implements GUICalcController {
             /*
              * Find value of next factor
              */
-            int nextFactor = valueOfFactor(source);
+            int nextFactor = factor(source);
 
             /*
              * Complete operation based on token consumed earlier
@@ -181,15 +181,15 @@ public class GUICalcControllerClass implements GUICalcController {
      * Evaluates an expression and returns its value.
      *
      * @param source
-     *            the {@code StringBuilder} that starts with an expr string
+     *            StringBuilder that starts with an expr string
      * @return value of the expression
      */
-    public static int valueOfExpr(StringBuilder source) {
+    public static int expr(StringBuilder source) {
 
         /*
          * First value of expression is always term
          */
-        int value = valueOfTerm(source);
+        int value = term(source);
 
         while (source.charAt(0) == '+' || source.charAt(0) == '-') {
 
@@ -203,7 +203,7 @@ public class GUICalcControllerClass implements GUICalcController {
             /*
              * Find value of next term
              */
-            int nextFactor = valueOfTerm(source);
+            int nextFactor = term(source);
 
             /*
              * Complete operation based on token consumed earlier
@@ -267,7 +267,7 @@ public class GUICalcControllerClass implements GUICalcController {
         /*
          * Calculate value of expression
          */
-        int value = valueOfExpr(new StringBuilder(this.model.display() + "!"));
+        int value = expr(new StringBuilder(this.model.display() + "!"));
 
         /*
          * Update model to concatenate solution onto next line
