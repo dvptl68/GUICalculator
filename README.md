@@ -4,7 +4,7 @@ This is a simple GUI calculator developed in Java. It utilizes [Java Swing Frame
 
 ## How to use it:
 
-Download the package above, and run it using either the command line or an IDE. If you don't want to download the entire package or don't have an IDE, you can download the executable jar file [here](GUICalculator.jar). You can run the jar file with the command line or by double clicking on the file.
+Download the package above, and run it using either the command line or an IDE. If you don't want to download the entire package or don't have an IDE, you can download the executable jar file [here](https://github.com/dvptl68/GUICalculator/blob/master/GUICalculator.jar?raw=true). You can run the jar file with the command line or by double clicking on the file.
 
 Once you have it running, you can enter any expression you'd like! The calculator will prevent you from entering expressions that are not consisted with the CFG shown below, but you'll need to be careful with divide by 0. The calculator will correctly evaluate the expression you enter following the correct [order of operations](https://en.wikipedia.org/wiki/Order_of_operations).
 
