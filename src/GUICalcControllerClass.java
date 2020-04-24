@@ -1,3 +1,5 @@
+import java.math.BigInteger;
+
 /**
  * Controller class.
  *
@@ -19,7 +21,7 @@ public class GUICalcControllerClass implements GUICalcController {
     /**
      * Number based used in calculations.
      */
-    private static final int RADIX = 10;
+    private static final BigInteger RADIX = new BigInteger("10");
 
     /**
      * Boolean value to keep track of whether divide by 0 happens during parse.
@@ -74,19 +76,19 @@ public class GUICalcControllerClass implements GUICalcController {
      *            StringBuilder that starts with a digit
      * @return value of digit
      */
-    private static int digit(StringBuilder source) {
+    private static BigInteger digit(StringBuilder source) {
 
         /*
          * Parse digit to be returned
          */
-        int digit = Character.digit(source.charAt(0), RADIX);
+        String digit = "" + source.charAt(0);
 
         /*
          * Consume digit from parameter
          */
         source.deleteCharAt(0);
 
-        return digit;
+        return new BigInteger(digit);
     }
 
     /**
@@ -96,16 +98,17 @@ public class GUICalcControllerClass implements GUICalcController {
      *            StringBuilder that starts with a digit-seq string
      * @return value of digit sequence
      */
-    private static int digitSeq(StringBuilder source) {
+    private static BigInteger digitSeq(StringBuilder source) {
 
         /*
          * Add digits onto the value until a non-number character is found
          */
-        int value = 0;
+        BigInteger value = new BigInteger("0");
 
         while (Character.isDigit(source.charAt(0))) {
 
-            value = (value * RADIX) + digit(source);
+            value = value.multiply(RADIX).add(digit(source));
+
         }
 
         return value;
@@ -118,9 +121,9 @@ public class GUICalcControllerClass implements GUICalcController {
      *            StringBuilder that starts with a factor string
      * @return value of factor
      */
-    private static int factor(StringBuilder source) {
+    private static BigInteger factor(StringBuilder source) {
 
-        int value;
+        BigInteger value;
 
         /*
          * If the first character is '(', the following is an expr. Otherwise,
@@ -161,12 +164,12 @@ public class GUICalcControllerClass implements GUICalcController {
      *            StringBuilder that starts with a term string
      * @return value of term
      */
-    private static int term(StringBuilder source) {
+    private static BigInteger term(StringBuilder source) {
 
         /*
          * First value of term is always a factor
          */
-        int value = factor(source);
+        BigInteger value = factor(source);
 
         /*
          * Complete multiply or divide operations on value until a non-term
@@ -184,20 +187,20 @@ public class GUICalcControllerClass implements GUICalcController {
             /*
              * Find value of next factor
              */
-            int nextFactor = factor(source);
+            BigInteger nextFactor = factor(source);
 
             /*
              * Complete operation based on token consumed earlier
              */
             if (op == '*') {
 
-                value *= nextFactor;
+                value = value.multiply(nextFactor);
 
             } else {
 
                 try {
 
-                    value /= nextFactor;
+                    value = value.divide(nextFactor);
 
                 } catch (ArithmeticException e) {
 
@@ -218,12 +221,12 @@ public class GUICalcControllerClass implements GUICalcController {
      *            StringBuilder that starts with an expr string
      * @return value of the expression
      */
-    public static int expr(StringBuilder source) {
+    public static BigInteger expr(StringBuilder source) {
 
         /*
          * First value of expression is always term
          */
-        int value = term(source);
+        BigInteger value = term(source);
 
         while (source.charAt(0) == '+' || source.charAt(0) == '-') {
 
@@ -237,18 +240,18 @@ public class GUICalcControllerClass implements GUICalcController {
             /*
              * Find value of next term
              */
-            int nextFactor = term(source);
+            BigInteger nextFactor = term(source);
 
             /*
              * Complete operation based on token consumed earlier
              */
             if (op == '+') {
 
-                value += nextFactor;
+                value = value.add(nextFactor);
 
             } else {
 
-                value -= nextFactor;
+                value = value.subtract(nextFactor);
             }
         }
 
