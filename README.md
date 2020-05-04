@@ -1,6 +1,6 @@
 # GUICalculator
 
-This is a simple GUI calculator developed in Java. It utilizes [Java Swing Framework](https://en.wikipedia.org/wiki/Swing_(Java)) for the GUI, and [recursive-descent parsing](https://en.wikipedia.org/wiki/Recursive_descent_parser) for calculations.
+A simple GUI calculator developed in Java. It utilizes [Java Swing Framework](https://en.wikipedia.org/wiki/Swing_(Java)) for the GUI, and [recursive-descent parsing](https://en.wikipedia.org/wiki/Recursive_descent_parser) for calculations.
 
 ## How to use it:
 
